@@ -30,6 +30,7 @@ public:
 
     void setPointsCount(int newval)
     {
+        qDebug() << "Points count: " << newval;
         this->points_count = newval;
     }
 
@@ -111,7 +112,7 @@ public:
 
     double dfunc(double x)
     {
-        return (1 / (x * x * x * x)) * (16 - (12 * log(x)));
+        return (428 - (240 * log(x))) / (x * x * x * x * x * x);
     }
 
     void calcRp(Graphf *gf, Lagra *l)
@@ -135,9 +136,8 @@ public:
                 num *= gf->fX[i] - l->lX[j];
 
             this->result[i] = qFabs(max * num);
+            //qDebug() << "Result[" << i << "]: " << this->result[i];
         }
-
-
     }
 };
 #endif // LAGRA_HPP

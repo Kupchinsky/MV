@@ -84,7 +84,7 @@ void Widget::on_pushButtonLagra_clicked()
     LagraRp* lrp = NULL;
 
     int unit_points = l->lX.size();
-    if (unit_points - 1 == 3)
+    if (unit_points - 1 == 5)
     {
         lrp = new LagraRp();
         lrp->calcRp(gf, l);
