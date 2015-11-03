@@ -38,7 +38,7 @@
    <widget class="QLabel" name="label_2">
     <property name="geometry">
      <rect>
-      <x>110</x>
+      <x>70</x>
       <y>20</y>
       <width>31</width>
       <height>16</height>
@@ -51,7 +51,7 @@
      <enum>Qt::AutoText</enum>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButtonLagra">
+   <widget class="QPushButton" name="pushButtonGauss">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -64,10 +64,10 @@
      <string>Calculate -&gt; Draw f(x)</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="lineEditLagraStart">
+   <widget class="QLineEdit" name="lineEditGaussStart">
     <property name="geometry">
      <rect>
-      <x>110</x>
+      <x>70</x>
       <y>40</y>
       <width>51</width>
       <height>20</height>
@@ -80,26 +80,26 @@
      <string>Start</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="lineEditLagraPointsCount">
+   <widget class="QLineEdit" name="lineEditGaussPointsCount">
     <property name="geometry">
      <rect>
-      <x>230</x>
+      <x>190</x>
       <y>40</y>
       <width>51</width>
       <height>20</height>
      </rect>
     </property>
     <property name="text">
-     <string>5</string>
+     <string>2</string>
     </property>
     <property name="placeholderText">
      <string>Unit</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="lineEditLagraFinish">
+   <widget class="QLineEdit" name="lineEditGaussFinish">
     <property name="geometry">
      <rect>
-      <x>170</x>
+      <x>130</x>
       <y>40</y>
       <width>51</width>
       <height>20</height>
@@ -115,7 +115,7 @@
    <widget class="QLabel" name="label_6">
     <property name="geometry">
      <rect>
-      <x>170</x>
+      <x>130</x>
       <y>20</y>
       <width>31</width>
       <height>16</height>
@@ -131,7 +131,7 @@
    <widget class="QLabel" name="label_7">
     <property name="geometry">
      <rect>
-      <x>230</x>
+      <x>190</x>
       <y>20</y>
       <width>31</width>
       <height>16</height>
@@ -139,6 +139,38 @@
     </property>
     <property name="text">
      <string>Unit:</string>
+    </property>
+    <property name="textFormat">
+     <enum>Qt::AutoText</enum>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEditGaussValue">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>40</y>
+      <width>51</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>0</string>
+    </property>
+    <property name="placeholderText">
+     <string>Start</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_3">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>20</y>
+      <width>31</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Value:</string>
     </property>
     <property name="textFormat">
      <enum>Qt::AutoText</enum>

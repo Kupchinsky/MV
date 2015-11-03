@@ -17,6 +17,7 @@ SOURCES += main.cpp\
     qcustomplot.cpp
 
 HEADERS  += widget.h \
-    qcustomplot.h
+    qcustomplot.h \
+    gauss.hpp
 
 FORMS    += widget.ui

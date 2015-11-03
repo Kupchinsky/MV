@@ -17,7 +17,8 @@ public:
     void resizeEvent (QResizeEvent*);
 
 private slots:
-    void on_pushButton_clicked();
+
+    void on_pushButtonGauss_clicked();
 
 private:
     Ui::Widget *ui;

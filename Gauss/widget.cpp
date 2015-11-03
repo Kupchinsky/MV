@@ -1,5 +1,6 @@
 #include "widget.h"
 #include "ui_widget.h"
+#include "gauss.hpp"
 
 Widget::Widget(QWidget *parent) :
     QWidget(parent),
@@ -39,72 +40,35 @@ void Widget::resizeEvent (QResizeEvent*)
     ui->groupBox_Gauss->move(ui->widget->x(), ui->widget->y() + ui->widget->height() + 10);
 }
 
-void Widget::on_pushButton_clicked()
+void Widget::on_pushButtonGauss_clicked()
 {
-    /*int n, unit;// кол-во точек, узлов
-    double start;// начало оси x
-    double finish;// конец оси x
-    double step,t,G,value;
-
-    start=ui->lineEdit->text().toDouble();
-    finish=ui->lineEdit_2->text().toDouble();
-
-    value=ui->lineEdit_4->text().toDouble();
-
-    n=(finish-start)*10+1;
-    step=(finish-start)/(ui->lineEdit_3->text().toDouble());
-    unit=1+ui->lineEdit_3->text().toDouble();
-
-    QVector<double> x(n), y(n),yG(unit+2),xG(unit+2),R(n),P(n),dy(unit+1),d2y(unit+1);
-
-
-    //заполнение координатами основную функцию
-    for (int i=0; i<n; ++i)
-    {
-        x[i] = start+i*0.1;
-        y[i]=cos(x[i])*cos(x[i])+cos(x[i]+1)+x[i];
-    }
-
-    // Узловые точки
-    for (int i=0; i<unit+2; ++i)
-    {
-        xG[i] = start+i*step;
-        yG[i]=cos(xG[i])*cos(xG[i])+cos(xG[i]+1)+xG[i];
-    }
-
-    // Конечные разности 1-го порядка
-    for (int i=0;i<unit+1;i++)
-            dy[i]=yG[i+1]-yG[i];
-
-    // Конечные разности 2-го порядка
-    for (int i=0;i<unit;i++)
-        d2y[i]=yG[i+2] - 2*yG[i+1]+yG[i];
-
-    int k=0;
-    qDebug() << "Значение функции: ";
-
-    // Ближайший узел к точке, которую мы выводим
-        for(int i=0;i<unit;i++)
-            if(qFabs(value-xG[i])>qFabs(value-xG[i+1]))
-                k++;
-        t=(value-xG[k])/step;
-        G=yG[k] + dy[k]*t +d2y[k]*d2y[k]*t*(t-1)*0.5;
-
-        qDebug() << G;
-
     ui->widget->clearGraphs();
 
-    // основной график
-    ui->widget->addGraph();
-    ui->widget->graph(0)->setData(x, y);
-    ui->widget->graph(0)->setPen(QPen(Qt::red,1));
+    //
+    Graphf* gf = new Graphf();
+    gf->setStartX(ui->lineEditGaussStart->text().toDouble());
+    gf->setFinishX(ui->lineEditGaussFinish->text().toDouble());
+    gf->setPointsCount((gf->finishX - gf->startX) * 10 + 1);
+    gf->calcf();
 
-    //подписи осей
-    ui->widget->xAxis->setLabel("x");
-    ui->widget->yAxis->setLabel("y");
+    QCPGraph *graph = ui->widget->addGraph();
+    graph->setData(gf->fX, gf->fY);
+    graph->setPen(QPen(Qt::red, 1));
+    graph->setName("f(x)");
+    //
 
-    //длина осей
-    ui->widget->xAxis->setRange(start, finish);
-    ui->widget->yAxis->setRange(0,1.7);
-    ui->widget->replot();*/
+    //
+    GraphUnitF* guf = new GraphUnitF();
+    guf->setStartX(ui->lineEditGaussStart->text().toDouble());
+    guf->setFinishX(ui->lineEditGaussFinish->text().toDouble());
+    guf->setPointsCount((guf->finishX - guf->startX) * 10 + 1);
+    guf->setStepY((guf->finishX - guf->startX) / (gfgufpoints_count - 1));
+    guf->calcf();
+    //
+
+    ui->widget->xAxis->setRange(gf->startX, gf->finishX);
+    ui->widget->yAxis->setRange(0, 10);
+    ui->widget->replot(); /* Рисуем */
+
+    delete gf;
 }
