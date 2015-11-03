@@ -2,3 +2,6 @@
 *.exe
 Makefile*
 *.pro.user
+ui_*
+moc_*
+*.doc
