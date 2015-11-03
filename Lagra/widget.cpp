@@ -37,7 +37,8 @@ Widget::~Widget()
 void Widget::resizeEvent (QResizeEvent*)
 {
     ui->widget->resize(this->width() - 20, this->height() - 140);
-    ui->groupBox_Lagra->move(ui->widget->x(), ui->widget->y() + ui->widget->height() + 10);}
+    ui->groupBox_Lagra->move(ui->widget->x(), ui->widget->y() + ui->widget->height() + 10);
+}
 
 void Widget::on_pushButtonLagra_clicked()
 {
