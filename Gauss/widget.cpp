@@ -64,8 +64,8 @@ void Widget::on_pushButtonGauss_clicked()
     GraphUnitF* guf = new GraphUnitF();
     guf->setStartX(ui->lineEditGaussStart->text().toDouble());
     guf->setFinishX(ui->lineEditGaussFinish->text().toDouble());
-    guf->setPointsCount(ui->lineEditGaussPointsCount->text().toDouble() + 3);
-    guf->setStepY((guf->finishX - guf->startX) / (guf->points_count - 3)); // Это h - шаг
+    guf->setPointsCount(ui->lineEditGaussPointsCount->text().toDouble() + 1);
+    guf->setStepY((guf->finishX - guf->startX) / (guf->points_count - 1)); // Это h - шаг
     guf->calcf();
     //
 
@@ -99,7 +99,7 @@ void Widget::on_pushButtonGauss_clicked()
     // Вычисляем t по формуле
     double t = (value - guf->fX[k]) / guf->stepY;
 
-    // Вычисляем L2 по формуле для конкретного значения, заданного в текстовом поле в окошке
+    // Вычисляем L2 по формуле для значения, заданного в текстовом поле в окошке
     double L2 = guf->fY[k] + dY[k] * t + dY2[k] * dY2[k] * t * (t - 1) * 0.5;
 /*
     // Остаточный член

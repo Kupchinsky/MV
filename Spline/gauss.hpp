@@ -5,7 +5,7 @@
 class GraphUnitF
 {
 public:
-    double startX, finishX, stepY;
+    double startX, finishX, stepS;
     QVector<double> fX, fY;
     int points_count;
 
@@ -23,9 +23,9 @@ public:
         this->finishX = newval;
     }
 
-    void setStepY(double newval)
+    void setStepS(double newval)
     {
-        this->stepY = newval;
+        this->stepS = newval;
     }
 
     void setPointsCount(int newval)
@@ -39,17 +39,15 @@ public:
         this->fX.resize(this->points_count);
         this->fY.resize(this->points_count);
 
-        qDebug() << this->points_count << this->startX << this->stepY;
+        qDebug() << this->points_count << this->startX << this->stepS;
 
         for (int i = 0; i < this->points_count; i++)
         {
-            this->fX[i] = this->startX + i * this->stepY;
+            this->fX[i] = this->startX + i * this->stepS;
             this->fY[i] = this->func(this->fX[i]);
 
-            qDebug() << "fX: " << this->fX[i] << ", fY: " << this->fY[i];
+            qDebug() << "uX: " << this->fX[i] << ", uY: " << this->fY[i];
         }
-
-        //qDebug() << this->fX << this->stepY;
     }
 
     double func(double x)
@@ -90,9 +88,11 @@ public:
         this->fX.resize(this->points_count);
         this->fY.resize(this->points_count);
 
+        double stepY = (this->finishX - this->startX) / (this->points_count - 1);
+
         for (int i = 0; i < this->points_count; i++)
         {
-            this->fX[i] = this->startX + i * 0.1;
+            this->fX[i] = this->startX + i * stepY;
             this->fY[i] = this->func(this->fX[i]);
         }
     }

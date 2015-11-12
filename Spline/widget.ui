@@ -23,7 +23,7 @@
     </rect>
    </property>
   </widget>
-  <widget class="QGroupBox" name="groupBox_Gauss">
+  <widget class="QGroupBox" name="groupBox_Spline">
    <property name="geometry">
     <rect>
      <x>0</x>
@@ -33,7 +33,7 @@
     </rect>
    </property>
    <property name="title">
-    <string>Гаусс</string>
+    <string>Сплайн</string>
    </property>
    <widget class="QLabel" name="label_2">
     <property name="geometry">
@@ -56,12 +56,12 @@
      <rect>
       <x>10</x>
       <y>80</y>
-      <width>131</width>
+      <width>81</width>
       <height>21</height>
      </rect>
     </property>
     <property name="text">
-     <string>Calculate -&gt; Draw f(x)</string>
+     <string>Linear</string>
     </property>
    </widget>
    <widget class="QLineEdit" name="lineEditGaussStart">
@@ -90,7 +90,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>2</string>
+     <string>6</string>
     </property>
     <property name="placeholderText">
      <string>Unit</string>
@@ -144,36 +144,17 @@
      <enum>Qt::AutoText</enum>
     </property>
    </widget>
-   <widget class="QLineEdit" name="lineEditGaussValue">
+   <widget class="QPushButton" name="pushButtonGauss_Cubic">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>40</y>
-      <width>51</width>
-      <height>20</height>
+      <x>100</x>
+      <y>80</y>
+      <width>81</width>
+      <height>21</height>
      </rect>
     </property>
     <property name="text">
-     <string>2</string>
-    </property>
-    <property name="placeholderText">
-     <string>Start</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_3">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>20</y>
-      <width>31</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Value:</string>
-    </property>
-    <property name="textFormat">
-     <enum>Qt::AutoText</enum>
+     <string>Cubic</string>
     </property>
    </widget>
   </widget>
