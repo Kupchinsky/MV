@@ -137,15 +137,56 @@ void Widget::on_pushButtonGauss_Cubic_clicked()
     //
     int dopRazbienie = (gf->points_count - 1) / (unitPoints - 1);
 
-    QVector<double> S(gf->points_count);
+    QVector<double> S(gf->points_count),
+            a(unitPoints), b(unitPoints), c(unitPoints), d(unitPoints), alpha(unitPoints),
+            beta(unitPoints), gamma(unitPoints), q(unitPoints), p(unitPoints), fi(unitPoints);
+
+    p[0] = p[1] = 0;
+    q[0] = q[1] = 0;
+    alpha[0] = alpha[unitPoints - 1] = 0;
+    beta[0] = beta[unitPoints - 1] = 0;
+    gamma[0] = gamma[unitPoints - 1] = 0;
+    fi[0] = fi[unitPoints - 1] = 0;
+    c[0] = c[unitPoints - 1] = 0;
+    d[0] = b[0] = 0;
+
+    for (int i = 1; i < unitPoints; i++)
+        a[i] = guf->fY[i];
+
+    for (int i = 1; i < unitPoints - 1; i++)
+    {
+        alpha[i] = guf->stepS;
+        beta[i] = 4 * guf->stepS;
+        gamma[i] = guf->stepS;
+        fi[i] = 6 * (guf->fY[i + 1] - 2 * guf->fY[i] + guf->fY[i - 1]) / guf->stepS;
+    }
+
+    for (int i = 1; i < unitPoints - 1; i++)
+        p[i + 1] = -gamma[i] / (beta[i] + alpha[i] * p[i]);
+
+    for (int i = 1; i < unitPoints - 1; i++)
+        q[i + 1] = (fi[i] - alpha[i] * q[i]) / (beta[i] + alpha[i] *  p[i]);
+
+    for (int i = unitPoints - 2; i > 0; i--)
+        c[i] = p[i + 1] * c[i + 1] + q[i + 1];
+
+    for (int i = 0; i < unitPoints - 1; i++)
+        d[i + 1] = (c[i] - c[i + 1]) / guf->stepS;
+
+    for (int i = 0; i < unitPoints - 1; i++)
+        b[i + 1] = (guf->fY[i] - guf->fY[i + 1]) / guf->stepS - c[i + 1] *  guf->stepS / 2 - (c[i] - c[i + 1]) * guf->stepS / 6;
+
     for (int i = 1; i < unitPoints; i++)
     {
         for (int j = 0; j <= dopRazbienie; j++)
         {
             S[(i - 1) * dopRazbienie + j] =
-                    guf->fY[i] + (guf->fX[i] - gf->fX[(i - 1) * dopRazbienie + j])
-                    *
-                    (guf->fY[i - 1] - guf->fY[i]) / (guf->fX[i] - guf->fX[i - 1]);
+                    a[i] + b[i] * (guf->fX[i] - gf->fX[(i - 1) * dopRazbienie + j]) +
+                    c[i] * (guf->fX[i] - gf->fX[(i - 1) * dopRazbienie + j]) *
+                    (guf->fX[i] - gf->fX[(i - 1) * dopRazbienie + j]) / 2 +
+                    d[i] * (guf->fX[i] - gf->fX[(i - 1) * dopRazbienie + j]) *
+                    (guf->fX[i] - gf->fX[(i - 1) * dopRazbienie + j])*
+                    (guf->fX[i] - gf->fX[(i - 1) * dopRazbienie + j]) / 6;
         }
     }
 
