@@ -98,6 +98,16 @@ void Widget::on_pushButtonGauss_clicked()
     graph->setName("R(x)");
     //
 
+    //
+    Lagra* l = new Lagra(unitPoints);
+    l->calcF(gf);
+
+    graph = ui->widget->addGraph();
+    graph->setData(gf->fX, l->result);
+    graph->setPen(QPen(Qt::yellow, 1));
+    graph->setName("L(x)");
+    //
+
     ui->widget->xAxis->setRange(gf->startX, gf->finishX);
     ui->widget->yAxis->setRange(0, 10);
     ui->widget->replot();
