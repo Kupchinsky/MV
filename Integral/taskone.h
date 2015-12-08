@@ -4,8 +4,6 @@
 #include <QtMath>
 #include <QtAlgorithms>
 
-//cos(x*x*cos(x))
-
 struct result
 {
     double integralValue;
@@ -14,7 +12,7 @@ struct result
 
 double function(double x)
 {
-    return cos(x*x*cos(x));
+    return (x + 1) * sin(x);
 }
 
 result rectangleFormula(double a, double b, int n)
@@ -40,7 +38,7 @@ result rectangleFormula(double a, double b, int n)
 
     for (int i=0; i<n+1;i++)
     {
-        M[i]=qFabs(x[i]*(x[i]*sin(x[i])-2*cos(x[i]))*sin(x[i]*x[i]*cos(x[i])));
+        M[i]=qFabs(cos(2 * x[i]) / sqrt(sin(2 * x[i]))); // 1
     }
 
     qSort(M);
@@ -70,13 +68,12 @@ result trapezeFormula(double a, double b, int n)
         if(i==0 || i == n)
             value.integralValue+=step*y[i]/2;
         else
-           value.integralValue+=step*y[i];
+            value.integralValue+=step*y[i];
     }
 
     for (int i=0; i<n+1;i++)
     {
-        M[i]=qFabs(-cos(x[i]*x[i]*cos(x[i]))*(2*x[i]*cos(x[i])-x[i]*x[i]*sin(x[i]))*(2*x[i]*cos(x[i])-x[i]*x[i]*sin(x[i])) -
-                (x[i]*x[i]*(-cos(x[i])-4*x[i]*sin(x[i])+2*cos(x[i])))*sin(x[i]*x[i]*cos(x[i])));
+        M[i]=qFabs(2 * cos(x[i]) - sin(x[i]) * (x[i] + 1)); // 2
     }
 
     qSort(M);
@@ -123,14 +120,7 @@ result simpsonFormula(double a, double b, int n)
 
     for (int i=0; i<n+1;i++)
     {
-        M[i]= cos(x[i]*x[i]*cos(x[i])) * (2*x[i]*cos(x[i]) - x[i]*x[i]*sin(x[i])) * (2*x[i]*cos(x[i]) - x[i]*x[i]*sin(x[i])) *
-                                         (2*x[i]*cos(x[i]) - x[i]*x[i]*sin(x[i])) * (2*x[i]*cos(x[i]) - x[i]*x[i]*sin(x[i])) +
-              6*(-x[i]*x[i]*cos(x[i]) - 4*x[i]*sin(x[i]) + 2*cos(x[i])) * sin(x[i]*x[i]*cos(x[i])) *
-               (2*x[i]*cos(x[i]) - x[i]*x[i]*sin(x[i])) * (2*x[i]*cos(x[i]) - x[i]*x[i]*sin(x[i])) -
-              4*cos(x[i]*x[i]*cos(x[i])) * (x[i]*x[i]*sin(x[i]) - 6*sin(x[i]) - 6*x[i]*sin(x[i])) * (2*x[i]*cos(x[i]) - x[i]*x[i]*sin(x[i])) -
-              3*cos(x[i]*x[i]*cos(x[i])) * (-x[i]*x[i]*cos(x[i]) - 4*x[i]*sin(x[i]) + 2*cos(x[i])) *
-                                           (-x[i]*x[i]*cos(x[i]) - 4*x[i]*sin(x[i]) + 2*cos(x[i])) -
-              (x[i]*x[i]*cos(x[i]) + 8*x[i]*sin(x[i]) - 12*cos(x[i]))*sin(x[i]*x[i]*cos(x[i]));
+        M[i]= sin(x[i]) * (x[i] + 1) - 4 * cos(x[i]); // 4
     }
 
     qSort(M);
@@ -177,14 +167,7 @@ result threeEighth(double a, double b, int n)
 
     for (int i=0; i<n+1;i++)
     {
-        M[i]= cos(x[i]*x[i]*cos(x[i])) * (2*x[i]*cos(x[i]) - x[i]*x[i]*sin(x[i])) * (2*x[i]*cos(x[i]) - x[i]*x[i]*sin(x[i])) *
-                                         (2*x[i]*cos(x[i]) - x[i]*x[i]*sin(x[i])) * (2*x[i]*cos(x[i]) - x[i]*x[i]*sin(x[i])) +
-              6*(-x[i]*x[i]*cos(x[i]) - 4*x[i]*sin(x[i]) + 2*cos(x[i])) * sin(x[i]*x[i]*cos(x[i])) *
-               (2*x[i]*cos(x[i]) - x[i]*x[i]*sin(x[i])) * (2*x[i]*cos(x[i]) - x[i]*x[i]*sin(x[i])) -
-              4*cos(x[i]*x[i]*cos(x[i])) * (x[i]*x[i]*sin(x[i]) - 6*sin(x[i]) - 6*x[i]*sin(x[i])) * (2*x[i]*cos(x[i]) - x[i]*x[i]*sin(x[i])) -
-              3*cos(x[i]*x[i]*cos(x[i])) * (-x[i]*x[i]*cos(x[i]) - 4*x[i]*sin(x[i]) + 2*cos(x[i])) *
-                                           (-x[i]*x[i]*cos(x[i]) - 4*x[i]*sin(x[i]) + 2*cos(x[i])) -
-              (x[i]*x[i]*cos(x[i]) + 8*x[i]*sin(x[i]) - 12*cos(x[i]))*sin(x[i]*x[i]*cos(x[i]));
+        M[i]= sin(x[i]) * (x[i] + 1) - 4 * cos(x[i]); // 4
     }
 
     qSort(M);
@@ -202,7 +185,6 @@ result methodGauss(double a, double b)
     result value;
     value.integralValue = 0;
     value.R = 0;
-    //double R =
 
     for(int i=0; i<n+1; i++)
     {

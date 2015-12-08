@@ -3,14 +3,18 @@
 #include <QDebug>
 #include <taskone.h>
 
+// 13 вариант
+// 13. f(x) = (x+1)sin(x);
+// a = 1,6; b = 2.4.
+
 using namespace std;
 int main()
 {
     result integral;
-    double a=5;
-    double b=7;
+    double a = 1.6;
+    double b = 2.4;
     int n;
-    double epsilon = qPow(10.0,-14.0);
+    double epsilon = qPow(10.0, -14.0); // 10^-14
 
     cout << "TASK 1" << endl;
     cout << endl << "Enter quantity of pieces = ";
@@ -48,7 +52,7 @@ int main()
     cout << "-------------Method of Gauss----------------" << endl;
     cout << "Value of integral = " << integral.integralValue << endl
          << "Value of the residual member = " << integral.R << endl << endl;
-
+/*
     cout << "TASK 2" << endl;
     cout << "Enter quantity of pieces = ";
     cin >> n;
@@ -59,7 +63,7 @@ int main()
     }
 
     cout << endl << "n = " << n << endl << "Value of integral = " << simpsonFormula(a,b,n).integralValue << endl;
-
+*/
     return 0;
 }
 
