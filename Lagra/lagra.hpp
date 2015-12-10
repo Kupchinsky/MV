@@ -50,7 +50,7 @@ public:
 
     double func(double x)
     {
-        return log(x) * log(x) + log(x) + 1;
+        return qPow(x, 4);
     }
 };
 

@@ -73,6 +73,7 @@ void Widget::on_pushButtonLagra_clicked()
     for (int i = 0; i < Rt.size(); i++)
         Rt[i] = qFabs(gf->fY[i] - l->result[i]);
 
+    qDebug() << Rt;
     graph = ui->widget->addGraph();
     graph->setData(gf->fX, Rt);
     graph->setPen(QPen(Qt::black, 1));

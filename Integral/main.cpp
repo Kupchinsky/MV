@@ -14,45 +14,46 @@ int main()
     double a = 1.6;
     double b = 2.4;
     int n;
-    double epsilon = qPow(10.0, -14.0); // 10^-14
 
     cout << "TASK 1" << endl;
-    cout << endl << "Enter quantity of pieces = ";
+    cout << endl << "Split parts = ";
     cin >> n;
     cout << endl;
 
     integral = rectangleFormula(a,b,n);
 
     cout << "-------------Method of rectangles----------------" << endl;
-    cout << "Value of integral = " << integral.integralValue << endl
-         << "Value of the residual member = " << integral.R << endl << endl;
+    cout << "I = " << integral.integralValue << endl
+         << "R = " << integral.R << endl << endl;
 
     integral = trapezeFormula(a,b,n);
     cout << "-------------Method of trapeze----------------" << endl;
-    cout << "Value of integral = " << integral.integralValue << endl
-         << "Value of the residual member = " << integral.R << endl << endl;
+    cout << "I = " << integral.integralValue << endl
+         << "R = " << integral.R << endl << endl;
 
     if(n%2==0)
     {
         integral = simpsonFormula(a,b,n);
         cout << "-------------Method of Simpson's----------------" << endl;
-        cout << "Value of integral = " << integral.integralValue << endl
-             << "Value of the residual member = " << integral.R << endl << endl;
+        cout << "I = " << integral.integralValue << endl
+             << "R = " << integral.R << endl << endl;
     }
 
     if(n%3==0)
     {
         integral = threeEighth(a,b,n);
         cout << "-------------Method of three eighth----------------" << endl;
-        cout << "Value of integral = " << integral.integralValue << endl
-             << "Value of the residual member = " << integral.R << endl << endl;
+        cout << "I = " << integral.integralValue << endl
+             << "R = " << integral.R << endl << endl;
     }
 
     integral = methodGauss(a,b);
     cout << "-------------Method of Gauss----------------" << endl;
-    cout << "Value of integral = " << integral.integralValue << endl
-         << "Value of the residual member = " << integral.R << endl << endl;
+    cout << "I = " << integral.integralValue << endl
+         << "R = " << integral.R << endl << endl;
 /*
+    double epsilon = qPow(10.0, -14.0); // 10^-14
+
     cout << "TASK 2" << endl;
     cout << "Enter quantity of pieces = ";
     cin >> n;
@@ -62,7 +63,7 @@ int main()
         n*=2;
     }
 
-    cout << endl << "n = " << n << endl << "Value of integral = " << simpsonFormula(a,b,n).integralValue << endl;
+    cout << endl << "n = " << n << endl << "I = " << simpsonFormula(a,b,n).integralValue << endl;
 */
     return 0;
 }

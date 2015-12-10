@@ -12,7 +12,7 @@ struct result
 
 double function(double x)
 {
-    return (x + 1) * sin(x);
+    return 1; //(x + 1) * sin(x);
 }
 
 result rectangleFormula(double a, double b, int n)
