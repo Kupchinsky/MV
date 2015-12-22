@@ -12,7 +12,7 @@ struct result
 
 double function(double x)
 {
-    return 1; //(x + 1) * sin(x);
+    return (x + 1) * sin(x);
 }
 
 result rectangleFormula(double a, double b, int n)
@@ -38,12 +38,14 @@ result rectangleFormula(double a, double b, int n)
 
     for (int i=0; i<n+1;i++)
     {
-        M[i]=qFabs(cos(2 * x[i]) / sqrt(sin(2 * x[i]))); // 1
+        M[i]=qFabs(cos(2 * x[i]) / sqrt(qFabs(sin(2 * x[i])))); // 1
     }
-
+l
     qSort(M);
     maxM = M[n];
-    value.R = (maxM*(b-a)*step)/2;
+
+    value.R = ((b - a) * (b - a) * step) / (2 * n) * maxM;
+
     return value;
 }
 

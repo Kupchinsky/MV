@@ -12,25 +12,34 @@ using namespace std;
 //Метод гаусса
 double **gauss(double **x,int n) // приведение к треугольному виду
 {
+    unsigned int swaps = 0;
     double max,temp,del; int mn;
     for (int k=0; k<n; k++)
     {
+        bool max_changed = false;
         max=qFabs(x[k][k]);
         mn=k;
         for(int i=k; i<n; i++)// поиск мин
         {
             if ((qFabs(x[i][k])> max))
             {
+                max_changed = true;
                 max=qFabs(x[i][k]);
                 mn=i;
             }
         }
+
+        if (max_changed) {
+            swaps++;
+        }
+
         for(int j=k;j<n+1; j++)// перестановка строк
         {
             temp = x[k][j];
             x[k][j]=x[mn][j];
             x[mn][j]=temp;
         }
+
         for(int i=k+1; i<n;i++)// треугольная матрица
         {
             del=x[i][k]/x[k][k];
@@ -44,6 +53,8 @@ double **gauss(double **x,int n) // приведение к треугольно
     for (int i=1; i<n;i++)
         for(int j=0;j<i;j++)
             x[i][j]=0;
+
+    qDebug() << "gauss swaps: " << swaps;
 
     return x;
 }
@@ -64,10 +75,17 @@ double *solution(double **x,int n, double *b) // нахождение решен
 }
 
 //Метод Зейделя
+static bool lol2 = false;
 bool converge(double *xk, double *xkp, int n) // условие остановки метода Зейделя
 {
     QList<double> norm;
-    double eps = 0.0001;
+    double eps = 0.00001;
+
+    if (!lol2) {
+        lol2 = true;
+        qDebug() << "epsilon: " << eps;
+    }
+
     for (int i = 0; i < n; i++)
     {
       norm.push_back(qFabs(xk[i] - xkp[i]));
@@ -83,6 +101,7 @@ bool converge(double *xk, double *xkp, int n) // условие остановк
 double *zeidel(double **a, int n, double *x) // Метод Зейделя
 {
     double *p = new double [n];
+    unsigned int iterations = 0;
     do
     {
         for (int i = 0; i < n; i++)
@@ -100,8 +119,13 @@ double *zeidel(double **a, int n, double *x) // Метод Зейделя
 
             x[i] = var / a[i][i];
         }
+
+        iterations++;
     }
     while (!converge(x, p,n));
+
+    qDebug() << "Iterations: " << iterations;
+
     return x;
 }
 
@@ -126,6 +150,9 @@ int isRow(double **a,int n,int line) // Нахождение строки
 
     if (numberLine == line)
         return 0;
+
+    qDebug() << "isRow unknown result";
+    return 0;
 }
 
 bool checkZeidel(double **a,int n)// проверка на сходимость
@@ -168,17 +195,30 @@ bool checkZeidel(double **a,int n)// проверка на сходимость
     return true;
 }
 
-//Медот скорейшего спуска - явная схема
+//Метод скорейшего спуска - явная схема
+// Условие остановки
+// Будем выбирать параметр tau[k+1] из условия минимума нормы погрешности при переходе от одной итерации к другой
+static bool lol = false;
+
 bool stop(double t, double **a, int n, double *x, double *p)
 {
     QList<double> norm;
-    double epsilon = 0.0001;
+    double epsilon = 0.1; //0.0001
+
+    if (!lol) {
+        lol = true;
+        qDebug() << "epsilon: " << epsilon;
+    }
+
+    qDebug() << "stop";
 
     for(int i = 0; i< n; i++)
     {
+        qDebug() << "for (i):" << i;
         double temp = (x[i] - p[i])/t;
         for (int j = 0; j < n; j++)
         {
+            qDebug() << " for (j):" << j;
             temp += a[i][j] * p[i];
         }
         temp -= a[i][n];
@@ -186,14 +226,22 @@ bool stop(double t, double **a, int n, double *x, double *p)
     }
     qSort(norm);
 
-    if(norm.last() <= epsilon)
+    qDebug() << "norm.last = " << norm.last();
+
+    if(norm.last() <= epsilon) {
+        qDebug() << "true";
       return true;
+    }
+
+    qDebug() << "false";
 
     return false;
 }
 
+// невязки
 double *discrepancy(double **a, int n, double *x)
 {
+    qDebug() << "discrepancy";
     double *r = new double [n];
 
     for(int i = 0; i < n; i++)
@@ -236,6 +284,8 @@ double toScalar(double *first, double *second,int n)
 
 double tau(double **a,double *r,int n)
 {
+    qDebug() << "tau";
+
     double t;
 
     t = toScalar(r,r,n)/toScalar(toVector(a, n, r), r, n);
@@ -243,11 +293,16 @@ double tau(double **a,double *r,int n)
     return t;
 }
 
+// Скорейший спуск
 double *fastestDescent(double **a,int n, double *x)
 {
     double *p = new double [n];
+    unsigned int iterations = 0;
+
     do
     {
+        iterations++;
+
         for (int i = 0; i < n; i++)
             p[i] = x[i];
 
@@ -265,5 +320,8 @@ double *fastestDescent(double **a,int n, double *x)
         }
     }
     while (!stop(tau(a, discrepancy(a,n,x), n), a, n, x, p));
+
+    qDebug() << "Iterations: " << iterations;
+
     return x;
 }

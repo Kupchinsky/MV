@@ -9,8 +9,8 @@ int main( )
     double detA;
     double normaA,normaR,M;
     ifstream F;
-    F.open("zeidel.txt", ios::in);
-    //F.open("gauss.txt", ios::in);
+
+    F.open("fd.txt", ios::in);
     F >> n;
 
     double **A=new double *[n];
@@ -27,6 +27,7 @@ int main( )
 
     double *B = new double [n];
     double *X = new double [n];
+
     for(int i=0;i<n;i++)
     {
         B[i]=0;
@@ -94,7 +95,6 @@ int main( )
         for(int i=0;i<n;i++)
             cout << "x[" << i+1 <<"] = " << X[i] << endl;
     }
-
 
     F.close();
     return 0;

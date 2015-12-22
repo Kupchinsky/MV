@@ -16,7 +16,7 @@ int main()
     int n;
 
     cout << "TASK 1" << endl;
-    cout << endl << "Split parts = ";
+    cout << endl << "Split parts (razbienya) = ";
     cin >> n;
     cout << endl;
 
@@ -37,7 +37,8 @@ int main()
         cout << "-------------Method of Simpson's----------------" << endl;
         cout << "I = " << integral.integralValue << endl
              << "R = " << integral.R << endl << endl;
-    }
+    } else
+        cout << "n % 2 != 0 -> Method of Simpson's not found" << endl;
 
     if(n%3==0)
     {
@@ -45,16 +46,17 @@ int main()
         cout << "-------------Method of three eighth----------------" << endl;
         cout << "I = " << integral.integralValue << endl
              << "R = " << integral.R << endl << endl;
-    }
+    } else
+        cout << "n % 3 != 0 -> Method of three eighth not found" << endl;
 
     integral = methodGauss(a,b);
-    cout << "-------------Method of Gauss----------------" << endl;
+    cout << "-------------Method of Gauss (N = 7) ----------------" << endl;
     cout << "I = " << integral.integralValue << endl
          << "R = " << integral.R << endl << endl;
-/*
+
     double epsilon = qPow(10.0, -14.0); // 10^-14
 
-    cout << "TASK 2" << endl;
+    cout << "TASK 2 (epsilon = " << epsilon << ")" << endl;
     cout << "Enter quantity of pieces = ";
     cin >> n;
 
@@ -64,7 +66,7 @@ int main()
     }
 
     cout << endl << "n = " << n << endl << "I = " << simpsonFormula(a,b,n).integralValue << endl;
-*/
+
     return 0;
 }
 
