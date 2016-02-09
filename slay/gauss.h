@@ -9,17 +9,21 @@
 #include <inout.h>
 
 using namespace std;
+
 //Метод гаусса
 double **gauss(double **x,int n) // приведение к треугольному виду
 {
     unsigned int swaps = 0;
-    double max,temp,del; int mn;
+    double max,temp,del;
+	int mn;
+
     for (int k=0; k<n; k++)
     {
         bool max_changed = false;
         max=qFabs(x[k][k]);
         mn=k;
-        for(int i=k; i<n; i++)// поиск мин
+
+        for (int i=k; i<n; i++)// поиск мин
         {
             if ((qFabs(x[i][k])> max))
             {
