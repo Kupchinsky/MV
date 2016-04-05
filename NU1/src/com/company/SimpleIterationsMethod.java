@@ -19,16 +19,21 @@ public class SimpleIterationsMethod extends Shared.MethodRunnable {
     @Override
     public void onDataRequested() {
         double q = this.maxPhi(this.a, this.b);
+
+        if (q > 1 || q < 0) {
+            throw new RuntimeException("q is invalid");
+        }
+
         this.additionalCoef = (1 - q) / q;
-        this.c = this.b > this.a ? this.b : this.a;
+        this.c = Math.max(this.b, this.a);
     }
 
     private double phi0(double x) {
-        return (3 / (x * x - 1)); // Где взять?
+        return Shared.arcctg(x / 5);
     }
 
     private double phi1(double x) {
-        return ((-6 * x) / Math.pow(x * x - 1, 2)); // Где взять?
+        return -5 / ((x * x) + 25);
     }
 
     private double maxPhi(double a, double b) {

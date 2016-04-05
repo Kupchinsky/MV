@@ -23,6 +23,6 @@ public class ChebyshevMethod extends Shared.MethodRunnable {
 
     @Override
     public void onDataRequested() {
-        this.c = this.a;
+        this.c = this.b;
     }
 }

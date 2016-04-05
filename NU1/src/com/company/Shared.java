@@ -11,8 +11,12 @@ public class Shared {
         return (1 / Math.tan(x)) - (x / 5);
     }
 
-    private static double csc(double theta) {
+    public static double csc(double theta) {
         return 1.0 / Math.sin(theta);
+    }
+
+    public static double arcctg(double x) {
+        return (3.14 / 2) - Math.atan(x);
     }
 
     private static double cot(double theta) {
@@ -27,7 +31,7 @@ public class Shared {
         return 2 * Shared.cot(x) * Math.pow(Shared.csc(x), 2);
     }
 
-    public static double epsilon = Math.pow(10, -5);
+    public static double epsilon = Math.pow(10, -12);
 
     public static Pair<Double, Double> requestData() {
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
