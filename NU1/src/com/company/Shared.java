@@ -47,7 +47,7 @@ public class Shared {
     }
 
     public static abstract class MethodRunnable {
-        protected double a, b, c;
+        protected double a, b, c, additionalCoef = 1;
 
         public final void run() {
             System.out.println("f(x) = ctg(x) - (x / 5)");
@@ -63,7 +63,7 @@ public class Shared {
             int iterations = 1;
             double calcResult = this.calcResult();
 
-            while (Math.abs(calcResult) > Shared.epsilon) {
+            while (Math.abs(calcResult) > this.additionalCoef * Shared.epsilon) {
                 iterations++;
                 this.preCalc();
                 calcResult = this.calcResult();
